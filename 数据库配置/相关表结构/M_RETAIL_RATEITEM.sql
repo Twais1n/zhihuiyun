@@ -1,0 +1,89 @@
+/*
+ Navicat Premium Dump SQL
+
+ Source Server         : Bos
+ Source Server Type    : Oracle
+ Source Server Version : 110200 (Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options)
+ Source Host           : 10.14.10.83:8853
+ Source Schema         : BOSNDS3
+
+ Target Server Type    : Oracle
+ Target Server Version : 110200 (Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options)
+ File Encoding         : 65001
+
+ Date: 16/11/2025 18:02:14
+*/
+
+
+-- ----------------------------
+-- Table structure for M_RETAIL_RATEITEM
+-- ----------------------------
+DROP TABLE "BOSNDS3"."M_RETAIL_RATEITEM";
+CREATE TABLE "BOSNDS3"."M_RETAIL_RATEITEM" (
+  "ID" NUMBER(10,0) NOT NULL,
+  "AD_CLIENT_ID" NUMBER(10,0),
+  "AD_ORG_ID" NUMBER(10,0),
+  "OWNERID" NUMBER(10,0),
+  "MODIFIERID" NUMBER(10,0),
+  "CREATIONDATE" DATE,
+  "MODIFIEDDATE" DATE,
+  "ISACTIVE" CHAR(1 BYTE) DEFAULT 'Y' NOT NULL,
+  "M_RETAIL_ID" NUMBER(10,0),
+  "M_RETAILITEM_ID" NUMBER(10,0),
+  "M_PRODUCTALIAS_ID" NUMBER(10,0),
+  "QTY" NUMBER(10,0),
+  "TOT_AMT_ACTUAL" NUMBER(18,2),
+  "SALESREP_ID" NUMBER(10,0),
+  "RATE" NUMBER(10,2)
+)
+LOGGING
+NOCOMPRESS
+PCTFREE 10
+INITRANS 1
+STORAGE (
+  INITIAL 65536 
+  NEXT 8192 
+  MINEXTENTS 1
+  MAXEXTENTS 2147483645
+  BUFFER_POOL DEFAULT
+)
+PARALLEL 1
+NOCACHE
+DISABLE ROW MOVEMENT
+;
+
+-- ----------------------------
+-- Primary Key structure for table M_RETAIL_RATEITEM
+-- ----------------------------
+ALTER TABLE "BOSNDS3"."M_RETAIL_RATEITEM" ADD CONSTRAINT "SYS_C0027608" PRIMARY KEY ("ID");
+
+-- ----------------------------
+-- Checks structure for table M_RETAIL_RATEITEM
+-- ----------------------------
+ALTER TABLE "BOSNDS3"."M_RETAIL_RATEITEM" ADD CONSTRAINT "SYS_C0022867" CHECK ("ID" IS NOT NULL) NOT DEFERRABLE INITIALLY IMMEDIATE NORELY VALIDATE;
+ALTER TABLE "BOSNDS3"."M_RETAIL_RATEITEM" ADD CONSTRAINT "SYS_C0022868" CHECK ("ISACTIVE" IS NOT NULL) NOT DEFERRABLE INITIALLY IMMEDIATE NORELY VALIDATE;
+
+-- ----------------------------
+-- Indexes structure for table M_RETAIL_RATEITEM
+-- ----------------------------
+CREATE INDEX "BOSNDS3"."M_RETAIL_RATEITEM1"
+  ON "BOSNDS3"."M_RETAIL_RATEITEM" ("M_RETAIL_ID" ASC, "SALESREP_ID" ASC)
+  LOGGING
+  VISIBLE
+PCTFREE 10
+INITRANS 2
+STORAGE (
+  INITIAL 65536 
+  NEXT 1048576 
+  MINEXTENTS 1
+  MAXEXTENTS 2147483645
+  BUFFER_POOL DEFAULT
+);
+
+-- ----------------------------
+-- Foreign Keys structure for table M_RETAIL_RATEITEM
+-- ----------------------------
+ALTER TABLE "BOSNDS3"."M_RETAIL_RATEITEM" ADD CONSTRAINT "FK_M_RETAILITEM_3315" FOREIGN KEY ("M_RETAILITEM_ID") REFERENCES "BOSNDS3"."M_RETAILITEM" ("ID") ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE NORELY VALIDATE;
+ALTER TABLE "BOSNDS3"."M_RETAIL_RATEITEM" ADD CONSTRAINT "FK_M_RETAIL_1523" FOREIGN KEY ("M_RETAIL_ID") REFERENCES "BOSNDS3"."M_RETAIL" ("ID") ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE NORELY VALIDATE;

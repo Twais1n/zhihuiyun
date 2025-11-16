@@ -1,0 +1,6 @@
+数据库（测试环境可以修改）
+    oralcledatabase 11g
+     10.14.10.83:8853/orcl
+
+    'user': 'bosnds3',
+    'password': 'abc123',         sqlplus bosnds3/abc123@10.14.10.83:8853/orcl

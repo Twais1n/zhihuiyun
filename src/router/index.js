@@ -89,6 +89,18 @@ const routes = [
         name: 'Goods',
         component: () => import('@/views/Goods.vue'),
         meta: { requiresAuth: true }
+      },
+      {
+        path: '/level',
+        name: 'VipLevel',
+        component: () => import('@/views/Level.vue'),
+        meta: { requiresAuth: true }
+      },
+       {
+        path: '/Member-advanced',
+        name: 'memberAdvanced',
+        component: () => import('@/views/Member-advanced.vue'),
+        meta: { requiresAuth: true }
       }
     ]
   }

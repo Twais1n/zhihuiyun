@@ -4,44 +4,80 @@
     <div class="aside-content">
       
       <!-- 菜单项 -->
-      <el-menu 
-        :collapse="isCollapse" 
-        router="true" 
-        class="menu-container"
-        @mouseenter="handleMouseEnter"
-        @mouseleave="handleMouseLeave"
-        background-color="transparent"
-        text-color="#606266"
-        active-text-color="#409eff"
-        :default-active="$route.path"
-      >
-        <!-- 主导航 -->
-        <div class="menu-group-title" v-if="!isCollapse">主导航</div>
-        <el-menu-item 
-          v-for="item in mainMenu" 
-          :key="item.path"
-          :index="item.path"
-          :class="{ 'active-menu': $route.path === item.path }"
-        >
-          <component class="icons" :is="item.icon"></component>
-          <span>{{ item.label }}</span>
-        </el-menu-item>
+<!--      <el-menu -->
+<!--        :collapse="isCollapse" -->
+<!--        router="true" -->
+<!--        class="menu-container"-->
+<!--        @mouseenter="handleMouseEnter"-->
+<!--        @mouseleave="handleMouseLeave"-->
+<!--        background-color="transparent"-->
+<!--        text-color="#606266"-->
+<!--        active-text-color="#409eff"-->
+<!--        :default-active="$route.path"-->
+<!--      >-->
+<!--        &lt;!&ndash; 主导航 &ndash;&gt;-->
+<!--        <div class="menu-group-title" v-if="!isCollapse">主导航</div>-->
+<!--        <el-menu-item -->
+<!--          v-for="item in mainMenu" -->
+<!--          :key="item.path"-->
+<!--          :index="item.path"-->
+<!--          :class="{ 'active-menu': $route.path === item.path }"-->
+<!--        >-->
+<!--          <component class="icons" :is="item.icon"></component>-->
+<!--          <span>{{ item.label }}</span>-->
+<!--        </el-menu-item>-->
 
-        <!-- 系统管理 -->
-        <div class="menu-group-title" v-if="!isCollapse">系统管理</div>
-        <el-menu-item 
-          v-for="item in systemMenu" 
-          :key="item.path"
-          :index="item.path"
-          :class="{ 'active-menu': $route.path === item.path }"
-        >
-          <component class="icons" :is="item.icon"></component>
-          <span>{{ item.label }}</span>
-        </el-menu-item>
+<!--        &lt;!&ndash; 系统管理 &ndash;&gt;-->
+<!--        <div class="menu-group-title" v-if="!isCollapse">系统管理</div>-->
+<!--        <el-menu-item -->
+<!--          v-for="item in systemMenu" -->
+<!--          :key="item.path"-->
+<!--          :index="item.path"-->
+<!--          :class="{ 'active-menu': $route.path === item.path }"-->
+<!--        >-->
+<!--          <component class="icons" :is="item.icon"></component>-->
+<!--          <span>{{ item.label }}</span>-->
+<!--        </el-menu-item>-->
 
         <!-- 帮助与支持 -->
         
+<!--      </el-menu>-->
+      <el-menu
+          :collapse-transition="false"
+          :collapse="isCollapse"
+          router="true"
+          class="menu-container"
+          @mouseenter="handleMouseEnter"
+          @mouseleave="handleMouseLeave"
+          background-color="transparent"
+          text-color="#606266"
+          active-text-color="#409eff"
+          :default-active="$route.path">
+        <el-menu-item index="/">
+          <component class="icons" :is="'house'"></component>
+          <span>首页</span>
+        </el-menu-item>
+        <el-sub-menu
+          v-for = "item in list"
+          :index = "item.path"
+          :key="item.path"
+        >
+          <template #title>
+            <component :is="'user'" style="width:10%; margin-right: 10px"></component>
+            <span>{{item.label}}</span>
+          </template>
+          <el-menu-item
+            v-for="subitem in item.children"
+            :index="subitem.path"
+            :key="subitem.path"
+          >
+
+            <span>{{subitem.label}}</span>
+          </el-menu-item>
+        </el-sub-menu>
+
       </el-menu>
+
     </div>
   </el-aside>
 </template>
@@ -50,6 +86,19 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAllDataStore } from '@/stores/index.js'
+
+const list = ref([
+  {
+    path: '/member-menu',   // 一级菜单路径
+    label: '客户管理',
+    icon: 'user',
+    children: [             // 子菜单
+      { path: '/member', name: 'member', label: '客户列表', url: '/member' },
+      { path: '/Member-advanced', name: 'MemberAdvanced', label: '客户列表(高级)', url: '' },
+      { path: '/level', name: 'level', label: '会员等级', url: '' }
+    ]
+  }
+])
 
 
 // 路由实例
